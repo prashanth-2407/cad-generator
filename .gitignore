@@ -6,15 +6,39 @@ dist
 model.step
 model.zip
 
-
 # Ignore Python cache files
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.Python
 
-#tests folder
-tests/
+# Virtual environments
+venv/
+env/
+.venv/
 
-#env files
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
 .env
+.env.local
+
+# Docker volumes
+*.vol
+
+# Frontend build
+frontend/dist/
+
+# Backend/RAG index cache
+backend/rag/*.faiss
+backend/rag/*.pkl
