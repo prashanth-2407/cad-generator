@@ -41,6 +41,14 @@ cad_generator/
 
 ### Backend Setup
 
+1. Copy the environment template:
+```powershell
+cp backend\.env.example backend\.env
+```
+
+2. Edit `backend/.env` and add your Google API key.
+
+3. Install dependencies and run:
 ```powershell
 cd backend
 pip install -r ../requirements.txt
