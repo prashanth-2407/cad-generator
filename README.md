@@ -1,6 +1,20 @@
 # CAD Generator
 
-A web application for generating CAD models using FastAPI backend and React frontend.
+A web application for generating CAD models using natural language queries. The backend uses FastAPI with RAG (Retrieval Augmented Generation) to understand CAD-related queries, while the frontend provides a React-based interface for interacting with the system.
+
+## Features
+
+- Natural language to CAD model generation
+- RAG-powered query handling using CadQuery documentation
+- REST API with Swagger documentation
+- React frontend with Vite build system
+- CORS-enabled for local development
+
+## Tech Stack
+
+- **Backend**: FastAPI, Uvicorn, CadQuery
+- **Frontend**: React 18, Vite
+- **RAG**: FAISS index, sentence embeddings
 
 ## Project Structure
 
@@ -20,7 +34,12 @@ cad_generator/
 
 ## Getting Started
 
-### Backend
+### Prerequisites
+
+- Python 3.10+
+- Node.js 18+
+
+### Backend Setup
 
 ```powershell
 cd backend
@@ -29,3 +48,32 @@ python main.py
 ```
 
 The backend runs on `http://localhost:8000` and provides Swagger docs at `http://localhost:8000/docs`.
+
+### Frontend Setup
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend runs on `http://localhost:5173`.
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Health check |
+| POST | `/generate` | Generate CAD model from query |
+
+## Testing
+
+Run Python tests:
+```powershell
+cd tests
+python 01_code.py
+```
+
+## License
+
+MIT
