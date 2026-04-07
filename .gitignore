@@ -1,0 +1,17 @@
+node_modules
+dist
+*.local
+
+# CAD output files
+model.step
+model.zip
+
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+#tests folder
+tests/
