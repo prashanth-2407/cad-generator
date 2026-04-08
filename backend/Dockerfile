@@ -1,24 +1,20 @@
-# filepath: backend/Dockerfile
-FROM python:3.11-slim
+FROM continuumio/miniconda3
 
 WORKDIR /app
 
-# Install system dependencies for CadQuery/OpenCASCADE
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx \
-    libglu1-mesa \
-    libfreetype6 \
-    libxrender1 \
-    libxkbcommon0 \
-    && rm -rf /var/lib/apt/lists/*
+# Create environment with cadquery
+RUN conda create -n cadquery-env -c conda-forge python=3.11 cadquery -y
 
-# Copy requirements first for caching
+# Activate env
+SHELL ["conda", "run", "-n", "cadquery-env", "/bin/bash", "-c"]
+
+# Install other Python deps
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy backend code
+# Copy code
 COPY backend/ ./backend/
 
 EXPOSE 8000
 
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD uvicorn backend.main:app --host 0.0.0.0 --port 8000
