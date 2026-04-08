@@ -5,7 +5,7 @@ import cadquery as cq
 import zipfile
 
 
-from services import generate_cad_code
+from backend.services import generate_cad_code
 
 router = APIRouter()
 
