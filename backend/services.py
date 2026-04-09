@@ -23,6 +23,10 @@ Rules:
 - Do NOT include imports
 - Do NOT include comments
 - Output a single expression
+- Always assign the final CAD object to a variable named `result`
+- Do not use any other variable name
+- Example:
+    result = cq.Workplane("XY").box(10, 10, 10)
 
 3D Operations Reference:
 
@@ -61,15 +65,15 @@ Examples:
 
 Prompt: Create a box of length 10 width 5 height 2
 Code:
-cq.Workplane("front").box(10, 5, 2)
+result = cq.Workplane("front").box(10, 5, 2)
 
 Prompt: Create a cylinder of radius 5 and height 10
 Code:
-cq.Workplane("front").circle(5).extrude(10)
+result = cq.Workplane("front").circle(5).extrude(10)
 
 Prompt: Create a plate with a hole
 Code:
-cq.Workplane("front").box(10,10,1).faces(">Z").workplane().hole(2)
+result = cq.Workplane("front").box(10,10,1).faces(">Z").workplane().hole(2)
 
 Now generate CadQuery code for:
 

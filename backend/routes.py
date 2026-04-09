@@ -19,6 +19,7 @@ def generate_cad(request: CADRequest):
 
    
     cad_code = generate_cad_code(request.prompt)
+    
 
     try:
         local_vars = {}
@@ -30,6 +31,7 @@ def generate_cad(request: CADRequest):
         )
 
         result = local_vars.get("result")
+        print(result)
 
         if result is None:
             return {

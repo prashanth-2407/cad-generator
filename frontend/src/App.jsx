@@ -71,8 +71,18 @@ export default function App() {
         padding: "48px 24px",
       }}
     >
-      <h1 style={{ fontWeight: 600, fontSize: "1.75rem", marginBottom: 8 }}>
-        CAD Generator
+      <h1
+      style={{
+        fontWeight: 700,
+        fontSize: "2rem",
+        marginBottom: 6,
+        background: "linear-gradient(90deg,#58a6ff,#3fb950)",
+        WebkitBackgroundClip: "text",
+        color: "transparent",
+        
+      }}
+      >
+      CAD Generator
       </h1>
       <p style={{ color: "#8b949e", marginTop: 0, marginBottom: 24 }}>
         Describe a shape; the server builds CadQuery code and returns a STEP
@@ -117,7 +127,7 @@ export default function App() {
                 borderRadius: 999,
                 border: "1px solid #30363d",
                 background: "#21262d",
-                color: "#e6edf3",
+                color: "#f3ebe6",
                 fontSize: "0.8125rem",
                 cursor: loading ? "not-allowed" : "pointer",
               }}
