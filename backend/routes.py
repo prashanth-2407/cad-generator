@@ -3,7 +3,8 @@ from pydantic import BaseModel
 from fastapi.responses import FileResponse
 import cadquery as cq
 import zipfile
-
+import uuid
+import os
 
 from backend.services import generate_cad_code
 
@@ -12,28 +13,63 @@ router = APIRouter()
 class CADRequest(BaseModel):
     prompt: str
 
+
 @router.post("/cad")
 def generate_cad(request: CADRequest):
-    
-    # 🔥 Step 1: Generate code using LLM
+
+   
     cad_code = generate_cad_code(request.prompt)
 
     try:
-        # 🔥 Step 2: Execute safely
-        result = eval(cad_code, {"cq": cq})
+        local_vars = {}
+
+        exec(
+            cad_code,
+            {"cq": cq},   # restricted globals
+            local_vars    # capture variables here
+        )
+
+        result = local_vars.get("result")
+
+        if result is None:
+            return {
+                "error": "No 'result' object found in generated code",
+                "generated_code": cad_code
+            }
 
     except Exception as e:
-        return {"error": str(e), "generated_code": cad_code}
+        return {
+            "error": str(e),
+            "generated_code": cad_code
+        }
 
-    # 🔥 Step 3: Export files
-    step_path = "model.step"
+    file_id = str(uuid.uuid4())
 
+    step_path = f"{file_id}.step"
+    zip_path = f"{file_id}.zip"
 
-    cq.exporters.export(result, step_path)
+    try:
+        # 🔥 Step 4: Export STEP file
+        cq.exporters.export(result, step_path)
 
-    # 🔥 Step 4: Zip files
-    zip_path = "model.zip"
-    with zipfile.ZipFile(zip_path, "w") as z:
-        z.write(step_path)
+        # 🔥 Step 5: Zip the file
+        with zipfile.ZipFile(zip_path, "w") as z:
+            z.write(step_path)
 
-    return FileResponse(zip_path, media_type="application/zip", filename="model.zip")
+    except Exception as e:
+        return {
+            "error": f"Export failed: {str(e)}",
+            "generated_code": cad_code
+        }
+
+    finally:
+        # Optional cleanup of STEP file after zipping
+        if os.path.exists(step_path):
+            os.remove(step_path)
+
+    # 🔥 Step 6: Return ZIP file
+    return FileResponse(
+        zip_path,
+        media_type="application/zip",
+        filename="model.zip"
+    )
