@@ -1,18 +1,20 @@
-# filepath: frontend/Dockerfile
-FROM node:20-alpine
+# Step 1: Build the app
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
 COPY frontend/package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy frontend source
 COPY frontend/ ./
+RUN npm run build
 
-# Expose Vite dev server port
-EXPOSE 5173
 
-CMD ["npm", "run", "dev", "--", "--host"]
+# Step 2: Serve with nginx
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 8080
+
+CMD ["nginx", "-g", "daemon off;"]
