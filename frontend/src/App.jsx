@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 /** Edit this list to add or change preset prompts shown in the UI. */
 const PROMPT_TEMPLATES = [
