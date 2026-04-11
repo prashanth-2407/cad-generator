@@ -1,16 +1,17 @@
-# Step 1: Build the app
+# Build stage
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY frontend/package.json ./
+COPY package.json ./
+COPY package-lock.json ./
 RUN npm install
 
-COPY frontend/ ./
+COPY . .
 RUN npm run build
 
 
-# Step 2: Serve with nginx
+# Serve stage
 FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
