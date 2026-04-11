@@ -6,7 +6,7 @@ import zipfile
 import os
 import tempfile
 
-from backend.services import generate_cad_code
+from services import generate_cad_code
 
 router = APIRouter()
 
