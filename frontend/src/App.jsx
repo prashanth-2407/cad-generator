@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE = "https://cad-generator-879316851700.asia-south1.run.app";
 
 /** Edit this list to add or change preset prompts shown in the UI. */
 const PROMPT_TEMPLATES = [
