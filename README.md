@@ -73,6 +73,8 @@ cad_generator/
 │ ├── nginx.conf
 │ ├── Dockerfile
 │ └── .env
+│
+├── tests/
 ├── docker-compose.yml
 ├── .env
 ├── .gitignore
