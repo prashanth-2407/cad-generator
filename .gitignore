@@ -42,3 +42,6 @@ frontend/dist/
 # Backend/RAG index cache
 backend/rag/*.faiss
 backend/rag/*.pkl
+
+#jupyter notebooks
+tests/

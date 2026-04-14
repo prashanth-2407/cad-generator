@@ -1,49 +1,103 @@
 # CAD Generator
 
-A web application for generating CAD models using natural language queries. The backend uses FastAPI with RAG (Retrieval Augmented Generation) to understand CAD-related queries, while the frontend provides a React-based interface for interacting with the system.
+A web application for generating CAD models from natural language input. The backend uses FastAPI and a prompt-driven approach (no RAG) to interpret user queries and generate CAD code using CadQuery, while the frontend provides an interactive React-based UI.
 
-## Features
+---
 
-- Natural language to CAD model generation
-- RAG-powered query handling using CadQuery documentation
-- REST API with Swagger documentation
-- React frontend with Vite build system
-- CORS-enabled for local development
+## 🚀 Features
 
-## Tech Stack
+- Natural language → CAD model generation
+- Prompt-based query interpretation (no RAG)
+- FastAPI backend with REST API
+- React frontend (Vite)
+- Dockerized setup (backend + frontend)
+- Simple and scalable architecture
 
-- **Backend**: FastAPI, Uvicorn, CadQuery
-- **Frontend**: React 18, Vite
-- **RAG**: FAISS index, sentence embeddings
+---
+
+## 🧠 How It Works
+
+1. User enters a natural language prompt  
+   *(e.g., "Create a cylinder with radius 10mm and height 50mm")*
+
+2. Backend sends the prompt to an LLM with a predefined system prompt
+
+3. The model generates **CadQuery code**
+
+4. Backend executes the code and returns the result
+
+---
+
+## 🛠 Tech Stack
+
+### Backend
+- FastAPI
+- Uvicorn
+- CadQuery
+- Python
+
+### Frontend
+- React 18
+- Vite
+
+### Deployment
+- Docker
+- Docker Compose
+- Nginx
+
+---
+
+## 📁 Project Structure
+
 
 ## Project Structure
 
 ```
 cad_generator/
-├── backend/           # FastAPI backend
-│   ├── main.py       # Application entry point
-│   ├── routes.py     # API routes
-│   ├── services.py   # Business logic
-│   └── rag/          # RAG components for CAD query handling
-├── frontend/         # React + Vite frontend
-│   └── src/          # React components
-├── tests/            # Test files
-├── requirements.txt  # Python dependencies
-└── README.md         # This file
+├── backend/
+│ ├── main.py
+│ ├── routes.py
+│ ├── services.py
+│ ├── requirements.txt
+│ ├── Dockerfile
+│ └── .env.example
+│
+├── frontend/
+│ ├── src/
+│ │ ├── App.jsx
+│ │ ├── main.jsx
+│ │ └── index.css
+│ ├── index.html
+│ ├── package.json
+│ ├── vite.config.js
+│ ├── nginx.conf
+│ ├── Dockerfile
+│ └── .env
+├── docker-compose.yml
+├── .env
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
-## Getting Started
+
+---
+
+## ⚙️ Getting Started
 
 ### Prerequisites
 
 - Python 3.10+
 - Node.js 18+
+- Docker (optional but recommended)
 
-### Backend Setup
+---
 
-1. Copy the environment template:
-```powershell
-cp backend\.env.example backend\.env
+## 🔧 Backend Setup (Local)
+
+```bash
+cd backend
+cp .env.example .env
 ```
 
 2. Edit `backend/.env` and add your Google API key.
@@ -74,13 +128,6 @@ The frontend runs on `http://localhost:5173`.
 | GET | `/health` | Health check |
 | POST | `/generate` | Generate CAD model from query |
 
-## Testing
-
-Run Python tests:
-```powershell
-cd tests
-python 01_code.py
-```
 
 ## License
 
