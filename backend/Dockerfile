@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Cloud Run requires this port
-EXPOSE 8080
+EXPOSE 8000
 
 # Start FastAPI app
 CMD ["conda", "run", "--no-capture-output", "-n", "cadquery-env", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
